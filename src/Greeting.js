@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchGreeting } from './features/greetingSlice';
 
 const Greeting = () => {
-  const [greeting, setGreeting] = useState('');
-
-  const fetchGreeting = async () => {
-    const response = await fetch('http://localhost:3000/greetings/random');
-    const data = await response.json();
-    setGreeting(data.greeting);
-  };
+  const dispatch = useDispatch();
+  const greeting = useSelector((state) => state.greeting);
 
   useEffect(() => {
-    fetchGreeting();
-  }, []);
+    dispatch(fetchGreeting());
+  }, [dispatch]);
 
   return (
     <div>
